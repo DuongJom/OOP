@@ -3,26 +3,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
-	//Hàm thêm 1 đầu sách vào danh sách hiện có, danh sách ở đây là kiểu List<Sach> a
-	static void them1DauSach(List<Sach> a) {
-		Sach s = new Sach();		//Khởi tạo 1 đối tượng sách
-		s.input();					//Thực hiện gọi hàm input() của đối tượng s để nhập thông tin đầu sách
-		a.add(s);					//Thêm s vào danh sách hiện có
-	}
+	
+	//Hàm thêm 1 đầu sách vào danh sách hiện có
+	static void them1DauSach(Sach[] arr,Sach[] themMoi) {
+        int n=arr.length;			//Lấy độ dài danh sách
+        Sach s = new Sach();		//Khởi tạo 1 đối tượng sách
+        s.input();					//Thực hiện gọi hàm input() của đối tượng s để nhập thông tin đầu sách
+        themMoi[0]=s;				//Thêm s vào danh sách thêm mới
+        arr[n-1]=s;					//Thêm s vào danh sách hiện có
+    }
 	
 	//Hàm nhập vào 1 danh sách có n phần tử
-	static void nhapDS(List<Sach> a, int n) {
+	static void nhapDS(Sach[] a, int n) {
 		for(int i=0;i<n;i++) {		//Vòng lặp duyệt qua n phần tử
 			System.out.println("Nhap thong tin dau sach thu "+(i+1)+":");
 			Sach s = new Sach();	//Khởi tạo 1 đối tượng sách
 			s.input();				//Thực hiện gọi hàm input() của đối tượng s để nhập thông tin đầu sách
-			a.add(s);				//Thêm s vào danh sách
+			a[i]=s;				//Thêm s vào danh sách
 		}
 	}
 	
 	//Hàm hiển thị danh sách đã thêm mới
-	static void hienThiDSThemMoi(List<Sach> a) {
+	static void hienThiDSThemMoi(Sach[] a) {
 		System.out.println("Ma sach\t\tTen sach\t\tNXB\t\tSo luong");
 		//Duyệt qua mọi phần tử trong danh sách đầu sách đã được thêm mới
 		for(Sach i: a) {
@@ -31,7 +33,7 @@ public class Main {
 	}
 	
 	//Hàm hiển thị đầu sách có số lượng >=10
-	static void hienThiDauSachLonHon10(List<Sach> a) {
+	static void hienThiDauSachLonHon10(Sach[] a) {
 		//Khai báo 1 biến kiểm tra có đầu sách nào có số lượng >=10 không
 		int dem=0;
 		System.out.println("Ma sach\t\tTen sach\t\tNXB\t\tSo luong");
@@ -47,7 +49,7 @@ public class Main {
 			}
 		}
 		//Kiểm tra biến dem, nếu dem bằng số phần tử của danh sách thì in thông báo "Không có đầu sách thỏa điều kiện"
-		if(dem==a.size()) {
+		if(dem==a.length) {
 			System.out.println("Khong co dau sach có so luong >=10 trong danh sach!");
 		}
 	}
@@ -57,20 +59,20 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("Nhap so luong dau sach: ");		//Hiển thị câu thông báo ra màn hình
-		int n = sc.nextInt();								//Chờ người dùng nhập vào 1 số nguyên cho số lượng đầu sách sẽ chứa trong danh sách
+		int n = sc.nextInt();
 		
 		//Khởi tạo 1 danh sách chứa các đầu sách
-		List<Sach> danhSach = new ArrayList<>();
-		
+		Sach[] danhSach = new Sach[n];
+		Sach[] themMoi = new Sach[1];
 		System.out.println("=================NHAP DANH SACH================");
 		//Thực hiện nhập danh sách
 		nhapDS(danhSach,n);
 		System.out.println("==============THEM MOI 1 DAU SACH==============");
 		//Thực hiện thêm mới 1 đầu sách
-		them1DauSach(danhSach);
+		them1DauSach(danhSach,themMoi);
 		System.out.println("===============HIEN THI DANH SACH DUOC THEM MOI===============");
 		//Thực hiện hiển thị danh sách các đầu sách được thêm mới
-		hienThiDSThemMoi(danhSach);
+		hienThiDSThemMoi(themMoi);
 		System.out.println("===============DAU SACH CO SO LUONG >= 10================");
 		//Thực hiện hiển thị danh sách các đầu sách có số lượng >=10
 		hienThiDauSachLonHon10(danhSach);
